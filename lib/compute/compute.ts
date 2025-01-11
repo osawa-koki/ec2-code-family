@@ -6,14 +6,14 @@ interface ComputeStackProps extends cdk.StackProps {
   stackName: string;
   vpc: ec2.Vpc;
   selectedSubnets: ec2.SelectedSubnets;
-  deployGroup: string;
+  deploymentGroupName: string;
 }
 
 export default class ComputeStack extends cdk.Stack {
   public readonly ec2Instance: ec2.Instance;
 
   constructor(scope: Construct, id: string, props: ComputeStackProps) {
-    const { stackName, deployGroup } = props;
+    const { stackName, deploymentGroupName } = props;
 
     super(scope, id, {
       ...props,
@@ -43,7 +43,7 @@ export default class ComputeStack extends cdk.Stack {
       machineImage: ec2.MachineImage.latestAmazonLinux2023(),
       securityGroup: securityGroup,
     });
-    cdk.Tags.of(ec2Instance).add('DeployGroup', deployGroup);
+    cdk.Tags.of(ec2Instance).add('DeployGroup', deploymentGroupName);
 
     this.ec2Instance = ec2Instance;
   }

@@ -19,7 +19,7 @@ export class IndexStack extends cdk.Stack {
       stackName: `${process.env.BASE_STACK_NAME!}-compute`,
       vpc: networkStack.vpc,
       selectedSubnets: networkStack.selectedSubnets,
-      deployGroup: process.env.BASE_STACK_NAME!,
+      deploymentGroupName: process.env.BASE_STACK_NAME!,
     });
     computeStack.addDependency(networkStack);
   }
