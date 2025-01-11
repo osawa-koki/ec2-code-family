@@ -54,9 +54,12 @@ export default class DeployStack extends cdk.Stack {
     const deployStage = deployGroup.addStage({
       stageName: 'Deploy',
     });
+    const application = new codedeploy.ServerApplication(this, 'Application', {
+      applicationName: 'MyApplication'
+    });
     const deploymentGroup = new codedeploy.ServerDeploymentGroup(this, 'DeploymentGroup', {
       deploymentGroupName: deploymentGroupName,
-      application: codedeploy.ServerApplication.fromServerApplicationName(this, 'Application', 'MyApplication'),
+      application: application,
       ec2InstanceTags: new codedeploy.InstanceTagSet({
         'DeployGroup': [deploymentGroupName],
       })

@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 
 import NetworkStack from './network/network';
 import ComputeStack from './compute/compute';
+import DeployStack from './deploy/deploy';
 
 export class IndexStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -22,5 +23,11 @@ export class IndexStack extends cdk.Stack {
       deploymentGroupName: process.env.BASE_STACK_NAME!,
     });
     computeStack.addDependency(networkStack);
+
+    const deployStack = new DeployStack(this, 'DeployStack', {
+      stackName: `${process.env.BASE_STACK_NAME!}-deploy`,
+      deploymentGroupName: process.env.BASE_STACK_NAME!,
+    });
+    deployStack.addDependency(computeStack);
   }
 }
