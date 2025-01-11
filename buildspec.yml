@@ -4,19 +4,15 @@ phases:
   install:
     runtime-versions:
       python: 3.9
-
   pre_build:
     commands:
       - echo "Starting pre-build..."
-
   build:
     commands:
       - echo "Skipping build..."
-
   post_build:
     commands:
       - echo "Preparing deployment file..."
-      - cp appspec.yml .
       - chmod +x ./scripts/*
 
 artifacts:
