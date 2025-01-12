@@ -1,5 +1,3 @@
-import * as fs from 'fs';
-import * as os from 'os';
 import * as cdk from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -44,10 +42,9 @@ export default class ComputeStack extends cdk.Stack {
       'Allow SSH access'
     );
 
-    const publicKeyPath = process.env.SSH_PUBLIC_KEY_MATERIAL_PATH!.replace('~', os.homedir());
     const keyPair = new ec2.KeyPair(this, 'MyKeyPair', {
       keyPairName: `${stackName}-key-pair`,
-      publicKeyMaterial: fs.readFileSync(publicKeyPath, 'utf8'),
+      publicKeyMaterial: process.env.SSH_PUBLIC_KEY_MATERIAL!,
     });
 
     const instanceRole = new iam.Role(this, 'MyInstanceRole', {
