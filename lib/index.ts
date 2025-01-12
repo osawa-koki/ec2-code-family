@@ -4,6 +4,7 @@ import { Construct } from 'constructs';
 import NetworkStack from './network/network';
 import ComputeStack from './compute/compute';
 import DeployStack from './deploy/deploy';
+import OutputStack from './output/output';
 
 export class IndexStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -29,5 +30,11 @@ export class IndexStack extends cdk.Stack {
       deploymentGroupName: process.env.BASE_STACK_NAME!,
     });
     deployStack.addDependency(computeStack);
+
+    const outputStack = new OutputStack(this, 'OutputStack', {
+      stackName: `${process.env.BASE_STACK_NAME!}-output`,
+      ec2InstancePublicIp: computeStack.ec2Instance.instancePublicIp,
+    });
+    outputStack.addDependency(computeStack);
   }
 }
