@@ -23,7 +23,13 @@ SSHでEC2に接続するためには、以下のコマンドを実行してく�
 ```shell
 ssh -i <秘密鍵のパス> ec2-user@<EC2のパブリックIPアドレス>
 
-# ssh -i ~/.ssh/id_rsa ec2-user@<EC2のパブリックIPアドレス>
+# ---
+
+source .env
+
+EC2_PUBLIC_IP_ADDRESS=$(aws cloudformation describe-stacks --stack-name ${BASE_STACK_NAME}-output --query "Stacks[0].Outputs[?OutputKey=='EC2InstancePublicIp'].OutputValue" --output text)
+
+ssh -i ${SSH_PRIVATE_KEY_MATERIAL_PATH} ec2-user@${EC2_PUBLIC_IP_ADDRESS}
 ```
 
 ---
