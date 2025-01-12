@@ -32,6 +32,21 @@ EC2_PUBLIC_IP_ADDRESS=$(aws cloudformation describe-stacks --stack-name ${BASE_S
 ssh -i ${SSH_PRIVATE_KEY_MATERIAL_PATH} ec2-user@${EC2_PUBLIC_IP_ADDRESS}
 ```
 
+デプロイしたアプリケーションにアクセスするためには、以下のコマンドを実行してください。  
+
+```shell
+source .env
+
+EC2_PUBLIC_IP_ADDRESS=$(aws cloudformation describe-stacks --stack-name ${BASE_STACK_NAME}-output --query "Stacks[0].Outputs[?OutputKey=='EC2InstancePublicIp'].OutputValue" --output text)
+
+URL=http://${EC2_PUBLIC_IP_ADDRESS}:8000
+echo URL: ${URL}
+
+curl ${URL}
+```
+
+`{"Hello":"World"}`が表示されれば成功です。  
+
 ---
 
 GitHub Actionsでデプロイするためには、以下のシークレットを設定してください。  
