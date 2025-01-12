@@ -1,4 +1,5 @@
 FROM node:22
-RUN npm install --global aws-cdk
+# Install the aws-cdk version that matches aws-cdk-lib in package.json
+RUN npm install --global aws-cdk@2.175.1
 RUN apt-get update && \
     apt-get install --yes less
