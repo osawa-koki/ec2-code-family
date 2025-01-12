@@ -2,12 +2,14 @@
 
 🦃🦃🦃 Codeファミリーを用いてEC2にアプリケーションをデプロイしてみる！  
 
+![成果物](./fruit.gif)  
+
 ## 実行方法
 
 `.env.example`をコピーして`.env`ファイルを作成します。  
 中身を適切に設定してください。  
 また、公開鍵ペアを作成してください。  
-公開鍵のパスを`SSH_PUBLIC_KEY_MATERIAL_PATH`に設定してください。  
+公開鍵のパスを`SSH_PUBLIC_KEY_MATERIAL_PATH`に、秘密鍵のパスを`SSH_PRIVATE_KEY_MATERIAL_PATH`に設定してください。  
 
 DevContainerに入り、以下のコマンドを実行します。  
 ※ `~/.aws/credentials`にAWSの認証情報があることを前提とします。  
