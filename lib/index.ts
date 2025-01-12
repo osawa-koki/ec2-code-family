@@ -33,7 +33,7 @@ export class IndexStack extends cdk.Stack {
 
     const outputStack = new OutputStack(this, 'OutputStack', {
       stackName: `${process.env.BASE_STACK_NAME!}-output`,
-      ec2InstancePublicIp: computeStack.ec2Instance.instancePublicIp,
+      computeStackName: computeStack.stackName,
     });
     outputStack.addDependency(computeStack);
   }
