@@ -14,6 +14,7 @@ interface ComputeStackProps extends cdk.StackProps {
 
 export default class ComputeStack extends cdk.Stack {
   public readonly ec2Instance: ec2.Instance;
+
   constructor(scope: Construct, id: string, props: ComputeStackProps) {
     const { stackName, deploymentGroupName } = props;
 
