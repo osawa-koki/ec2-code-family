@@ -31,7 +31,10 @@ source .env
 
 EC2_PUBLIC_IP_ADDRESS=$(aws cloudformation describe-stacks --stack-name ${BASE_STACK_NAME}-output --query "Stacks[0].Outputs[?OutputKey=='EC2InstancePublicIp'].OutputValue" --output text)
 
-ssh -i ${SSH_PRIVATE_KEY_MATERIAL_PATH} ec2-user@${EC2_PUBLIC_IP_ADDRESS}
+echo ${SSH_PRIVATE_KEY_MATERIAL} > ./ssh_private-key.tmp
+chmod 400 ./ssh_private-key.tmp
+
+ssh -i ./ssh_private-key.tmp ec2-user@${EC2_PUBLIC_IP_ADDRESS}
 ```
 
 デプロイしたアプリケーションにアクセスするためには、以下のコマンドを実行してください。  
